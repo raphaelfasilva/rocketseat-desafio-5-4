@@ -5,3 +5,40 @@ for (let item of menuItems) {
         item.classList.add("active")
     }
 }
+
+function paginate(selectedPage, totalPages) {
+    let pages = [],
+        oldPage
+
+    for (let currentPage = 1; currentPage <= totalPages; currentPage++) {
+        const firstLastPage = currentPage == 1 || currentPage == totalPages;
+        const pagesAfterSelectedPage = currentPage <= selectedPage + 2;
+        const pagesBeforeSelectPage = currentPage >= selectedPage - 2;
+        if (firstLastPage || pagesBeforeSelectPage && pagesAfterSelectedPage) {
+            if (oldPage && currentPage - oldPage > 2) {
+                pages.push("...")
+            }
+            if (oldPage && currentPage - oldPage == 2) {
+                pages.push(oldPage + 1)
+            }
+            pages.push(currentPage)
+            oldPage = currentPage
+        }
+    }
+    console.log(pages)
+    return pages
+
+}
+const pagination = document.querySelector(".pagination")
+const page = +pagination.dataset.page;
+const total = +pagination.dataset.total;
+const limit = +pagination.dataset.limit
+const filter = pagination.dataset.filter
+console.log(page)
+console.log(total)
+const pages = paginate(page, total)
+let elements = ""
+for (let page of pages) {
+    elements += `<a href="${currentPage}?page=${page}&limit=${limit}&filter=${filter}">${page}</a>`
+}
+pagination.innerHTML = elements
