@@ -25,7 +25,6 @@ function paginate(selectedPage, totalPages) {
             oldPage = currentPage
         }
     }
-    console.log(pages)
     return pages
 
 }
@@ -34,8 +33,6 @@ const page = +pagination.dataset.page;
 const total = +pagination.dataset.total;
 const limit = +pagination.dataset.limit
 const filter = pagination.dataset.filter
-console.log(page)
-console.log(total)
 const pages = paginate(page, total)
 let elements = ""
 for (let page of pages) {
